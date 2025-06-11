@@ -1,0 +1,38 @@
+
+.login{
+ min-width: 500px;
+ max-width: 50%;
+ margin: auto;
+ margin-top: 15%;
+}
+
+.login h1{
+    text-align: center;
+    margin: 1rem 0;
+}
+
+.login .input_box{}
+
+.login .input_box label{
+    font-size: 16px;
+    margin: 0.5rem 0;
+}
+
+.login .input_box .input{
+    margin: 0.5rem 0;
+}
+
+.login .button{
+    margin: 0.5rem 0;
+    height: 40px;
+}
+
+
+@media(max-width:600px){
+
+    .login{
+        min-width: 90%;
+    }
+
+}
+
