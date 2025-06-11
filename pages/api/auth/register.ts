@@ -7,14 +7,14 @@ import { AuthResponseConfig, UserDataInterface } from "@/components/interfaces";
 import { generateUsername } from "unique-username-generator";
 import { sendWelcomeEmail } from "@/components/server/sendWelcomeMail";
 
-export default async (
+export default async function register(
   req: NextApiRequest,
   res: NextApiResponse<AuthResponseConfig>
-) => {
+) {
   if (req.method !== "POST") {
     res.status(405).json({
       message: "Method Not Allowed",
-      status: 404,
+      status: 300,
       userCredentials: null,
     });
     return;
@@ -26,7 +26,7 @@ export default async (
   if (!email || !password) {
     res.status(400).json({
       message: "Missing email or password",
-      status: 400,
+      status: 300,
       userCredentials: null,
     });
     return;
@@ -73,7 +73,7 @@ export default async (
 
     res
       .status(400)
-      .json({ message: errorMessage, status: 400, userCredentials: null });
+      .json({ message: errorMessage, status: 300, userCredentials: null });
     return;
   }
-};
+}

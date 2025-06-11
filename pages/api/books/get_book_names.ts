@@ -7,14 +7,14 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse<BookDataResponseConfig>
 ) => {
-  var uid = req.query.id;
+  const uid = req.query.id;
 
   if (!uid) {
-    res.json({ status: 400, message: "uid not found", bookData: [] });
+    res.json({ status: 300, message: "uid not found", bookData: [] });
     return;
   }
 
-  var storageRef = ref(storage, `${uid}/books/`);
+  const storageRef = ref(storage, `${uid}/books/`);
   const result = await listAll(storageRef);
   // To get the actual files
   const bookNames = result.items.map((ele) => ele.name);

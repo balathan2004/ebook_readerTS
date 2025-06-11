@@ -1,6 +1,7 @@
 import { PassThrough } from "stream";
 import { NextApiRequest, NextApiResponse } from "next";
-const gTTS = require("gtts") as any;
+
+import gTTS from 'gtts'
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   try {

@@ -3,10 +3,10 @@ import { storage } from "@/components/config/config";
 import { ref, getDownloadURL } from "firebase/storage";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async (
+export default async function getSinglePage(
   req: NextApiRequest,
   res: NextApiResponse<PageResponseConfig>
-) => {
+) {
   try {
     const { EBookUserId } = req.cookies || req.body;
     const { bookName, startFrom } = req.body;
@@ -26,7 +26,7 @@ export default async (
     const fileRes = await fetch(fileUrl);
     const bookData = await fileRes.json();
 
-    console.log(bookData.pageData)
+    console.log(bookData.pageData);
 
     const startIdx = Number(startFrom) || 0; // Ensure `startFrom` is a valid number
     const endIdx = startIdx + 10;
@@ -45,4 +45,4 @@ export default async (
       message: "Book not found",
     });
   }
-};
+}

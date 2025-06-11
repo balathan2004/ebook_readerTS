@@ -11,12 +11,12 @@ export default async (
 ) => {
   const auth = getAuth(firebase);
 
-  var { email, password } = req.body;
+  const { email, password } = req.body;
 
   if (!email || !password) {
     res.status(400).json({
       message: "Email and password are required",
-      status: 400,
+      status: 300,
       userCredentials: null,
     });
     return;
@@ -33,7 +33,7 @@ export default async (
     if (!user) {
       res.status(400).json({
         message: "Account not found",
-        status: 400,
+        status: 300,
         userCredentials: null,
       });
       return;
@@ -45,7 +45,7 @@ export default async (
     if (!userDocSnap.exists()) {
       return res.status(400).json({
         message: "User data not found in database",
-        status: 400,
+        status: 300,
         userCredentials: null,
       });
     }
@@ -72,7 +72,7 @@ export default async (
     console.error("Login Error:", error.message);
     res.status(400).json({
       message: error.code || "Login failed",
-      status: 400,
+      status: 300,
       userCredentials: null,
     });
     return;

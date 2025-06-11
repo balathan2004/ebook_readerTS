@@ -22,10 +22,9 @@ export default function Login() {
       return;
     }
 
-    var res = await SendAuthData({
+    const res = await SendAuthData({
       route: "login",
       data: userData,
-      setLoading,
     });
     if (res.status == 200) {
       setTimeout(() => {

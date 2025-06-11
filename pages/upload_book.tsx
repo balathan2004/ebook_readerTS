@@ -26,7 +26,7 @@ export default function UploadBook() {
       method: "POST",
       body: formdata,
     });
-    var response = await res.json();
+    const response = await res.json();
     console.log(response);
     if (response.message == "success") {
       setTimeout(() => {

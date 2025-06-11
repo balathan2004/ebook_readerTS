@@ -7,8 +7,8 @@ export default async (
   req: NextApiRequest,
   res: NextApiResponse<ResponseConfig>
 ) => {
-  var uid = req.cookies.EBookUserId || req.body.EBookUserId;
-  var { bookName } = req.body;
+  const uid = req.cookies.EBookUserId || req.body.EBookUserId;
+  const { bookName } = req.body;
   console.log(bookName);
 
   const fileRef = ref(storage, `${uid}/books/${bookName}`);

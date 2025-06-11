@@ -2,7 +2,7 @@ import { AuthResponseConfig } from "../interfaces";
 
 interface Props {
   route: string;
-  data: Object;
+  data: object;
 }
 
 export default async function SendAuthData({ route, data }: Props) {

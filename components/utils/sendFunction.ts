@@ -1,5 +1,5 @@
 interface Props {
-  data: Object;
+  data: object;
   route: string;
 }
 

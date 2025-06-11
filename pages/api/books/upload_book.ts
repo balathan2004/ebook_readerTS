@@ -1,5 +1,5 @@
 import { IncomingForm } from "formidable";
-import PDFJS from "pdfjs-dist";
+//import PDFJS from "pdfjs-dist";
 import { NextApiRequest, NextApiResponse } from "next";
 import { ResponseConfig } from "@/components/interfaces";
 import fs from "fs";
@@ -42,7 +42,7 @@ const post = async (
       if (!files.file || files.file.length === 0) {
         return res.status(400).json({ status: 300, message: "File not found" });
       }
-      var fileData = {
+      const fileData = {
         fileName: files.file[0].originalFilename || "untitled_file",
         uid: EBookUserId,
       };

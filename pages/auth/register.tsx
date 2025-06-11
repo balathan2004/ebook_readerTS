@@ -22,7 +22,7 @@ export default function Login() {
       return;
     }
 
-    var res = await SendAuthData({
+    const res = await SendAuthData({
       route: "/api/auth/register",
       data: userData,
     });
