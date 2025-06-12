@@ -5,6 +5,7 @@ import styles from "@/styles/Home.module.css";
 import * as cookie from "cookie";
 import { GetServerSidePropsContext } from "next";
 import { BookDataResponseConfig } from "@/components/interfaces";
+import { redirect } from "next/dist/server/api-utils";
 
 
 interface Props {
@@ -18,7 +19,7 @@ export default function Home({ data, error }: Props) {
   console.log(data);
 
   useEffect(() => {
-    if (error) {
+    if (error || data.length==0) {
       const timer = setTimeout(() => {
         navigator.push("/upload_book");
       }, 3000);
@@ -78,10 +79,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   } catch (err) {
     console.log(err);
     return {
-      props: {
-        data: [],
-        error: "error",
-      },
-    };
+      redirect:{
+        path:"/upload_book"
+      }
   }
+}
 }

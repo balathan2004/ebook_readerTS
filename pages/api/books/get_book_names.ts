@@ -14,7 +14,7 @@ export default async (
     return;
   }
 
-  const storageRef = ref(storage, `${uid}/books/`);
+  const storageRef = ref(storage, `${uid}/`);
   const result = await listAll(storageRef);
   // To get the actual files
   const bookNames = result.items.map((ele) => ele.name);

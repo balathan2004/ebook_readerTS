@@ -20,7 +20,7 @@ export default async function getSinglePage(
       });
       return;
     }
-    const fileRef = ref(storage, `/${EBookUserId}/books/${bookName}`);
+    const fileRef = ref(storage, `/${EBookUserId}/${bookName}`);
 
     const fileUrl = await getDownloadURL(fileRef);
     const fileRes = await fetch(fileUrl);
@@ -32,7 +32,7 @@ export default async function getSinglePage(
     const endIdx = startIdx + 10;
     res.json({
       status: 200,
-      pageData: bookData.pageData.data.slice(startIdx, endIdx) as string[],
+      pageData: bookData.pageData.slice(startIdx, endIdx) as string[],
       totalPage: bookData.totalPage,
       message: "Book fetched",
     });

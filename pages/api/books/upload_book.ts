@@ -100,10 +100,15 @@ async function GetSingleBookData(fileBuffer: Uint8Array | ArrayBuffer) {
       })
     );
 
-    return { pageData: { data: pageTexts }, totalPage: totalPages };
+    const removedEmpty = pageTexts.filter((text) => text.trim() != "");
+
+    return {
+      pageData: removedEmpty,
+      totalPage: removedEmpty.length || 0,
+    };
   } catch (error) {
     console.error("PDF Parsing Error:", error);
-    return { pageData: { data: [] }, totalPage: 0 };
+    return { pageData: [], totalPage: 0 };
   }
 }
 
@@ -113,7 +118,7 @@ async function uploadFileString(
   uid: string
 ) {
   try {
-    const storageRef = ref(storage, `/${uid}/books/${fileName}`);
+    const storageRef = ref(storage, `/${uid}/${fileName}`);
     await uploadString(storageRef, JSON.stringify(textContent), "raw", {
       contentType: "application/json", // Set correct MIME type
     });
