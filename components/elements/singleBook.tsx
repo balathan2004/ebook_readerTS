@@ -9,7 +9,8 @@ interface Props {
   setBookFunction: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export default function SingleBook({
+export default function 
+SingleBook({
   bookName,
   setBookFunction,
   allBookNames,
@@ -25,7 +26,7 @@ export default function SingleBook({
     if (prom == "yes" || prom == "y") {
       var res = await SendData({
         data: { bookName: bookName },
-        route: "/api/books/delete_book",
+        route: "/books/delete_book",
       });
       console.log(res);
       setBookFunction((prev) => prev.filter((book) => book != bookName));

@@ -20,7 +20,7 @@ export default function Home({ data, error }: Props) {
   useEffect(() => {
     if (error) {
       const timer = setTimeout(() => {
-        navigator.push("/upload-book");
+        navigator.push("/upload_book");
       }, 3000);
 
       // Clean up the timer on unmount
