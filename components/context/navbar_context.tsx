@@ -2,7 +2,6 @@ import React, { useState, useContext, FC } from "react";
 
 type NavType = { name: string; path: string }[];
 
-
 export const NavUsers = [
   {
     name: "home",
@@ -20,7 +19,6 @@ export const NavUsers = [
     name: "read now",
     path: "/read_now",
   },
-  
 ];
 export const NavGuest = [
   {
@@ -37,10 +35,10 @@ export const NavGuest = [
   },
 ];
 
-
 interface NavContextType {
   dirs: NavType;
-  setDirs: React.Dispatch<React.SetStateAction<NavType>>;
+  setUserNav: () => void;
+  setGuestNav: () => void;
 }
 
 interface Props {
@@ -49,14 +47,18 @@ interface Props {
 
 export const NavContext = React.createContext<NavContextType>({
   dirs: NavGuest,
-  setDirs: () => {},
+  setGuestNav: () => {},
+  setUserNav: () => {},
 });
 
 const NavHolder: FC<Props> = ({ children }) => {
   const [dirs, setDirs] = useState<NavType>(NavGuest);
 
+  const setUserNav = () => setDirs(NavUsers);
+  const setGuestNav = () => setDirs(NavGuest);
+
   return (
-    <NavContext.Provider value={{ dirs, setDirs }}>
+    <NavContext.Provider value={{ dirs, setUserNav, setGuestNav }}>
       {children}
     </NavContext.Provider>
   );

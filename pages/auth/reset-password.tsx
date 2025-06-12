@@ -5,11 +5,13 @@ import { Button, TextField } from "@mui/material";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useLoadingContext } from "@/components/context/loading_context";
+import { useReplyContext } from "@/components/context/reply_context";
 
 export default function Login() {
   const router = useRouter();
-  const { setLoading } = useLoadingContext();
+  const { loading, setLoading } = useLoadingContext();
   const [userData, setUserData] = useState({ email: "", password: "" });
+  const { setReply } = useReplyContext();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -22,10 +24,16 @@ export default function Login() {
       return;
     }
 
+    setLoading(true);
     const res = await SendAuthData({
       route: "login",
       data: userData,
     });
+
+    setReply(res.message);
+
+    setLoading(false);
+
     if (res.status == 200) {
       setTimeout(() => {
         router.push("/home");
@@ -53,6 +61,7 @@ export default function Login() {
           </div>
 
           <Button
+            disabled={loading}
             className={styles.button}
             fullWidth
             type="submit"

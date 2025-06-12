@@ -5,11 +5,17 @@ import { Button, TextField } from "@mui/material";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { useLoadingContext } from "@/components/context/loading_context";
+import { useReplyContext } from "@/components/context/reply_context";
+import { useUserCredContext } from "@/components/context/usercred_context";
+import { useNavContext } from "@/components/context/navbar_context";
 
 export default function Login() {
   const router = useRouter();
-  const { setLoading } = useLoadingContext();
+  const { loading, setLoading } = useLoadingContext();
   const [userData, setUserData] = useState({ email: "", password: "" });
+  const { setUserNav } = useNavContext();
+  const { setReply } = useReplyContext();
+  const { setUserCred } = useUserCredContext();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -18,21 +24,30 @@ export default function Login() {
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log(userData);
+
     if (!userData.email || !userData.password) {
       console.log("fields missing");
       return;
     }
 
+    setLoading(true);
+
     var res = await SendAuthData({
       route: "/api/auth/login",
       data: userData,
     });
-    console.log(res);
+
+    setReply(res.message);
+
+    setLoading(false);
+
     if (res.status == 200) {
-      setTimeout(() => {
-        router.push("/home");
-      }, 1000);
+      setUserCred(res.userCredentials);
+      setUserNav();
+      // setTimeout(() => {
+      //   router.push("/home");
+      // }, 1000);
+       router.push("/home");
     }
   }
 
@@ -74,6 +89,7 @@ export default function Login() {
           </Button>
 
           <Button
+            disabled={loading}
             className={styles.button}
             fullWidth
             type="submit"

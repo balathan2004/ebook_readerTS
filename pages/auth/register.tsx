@@ -4,11 +4,18 @@ import SendAuthData from "@/components/utils/sendAuthData";
 import { Button, TextField } from "@mui/material";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { useReplyContext } from "@/components/context/reply_context";
+import { useLoadingContext } from "@/components/context/loading_context";
+import { useUserCredContext } from "@/components/context/usercred_context";
+import { useNavContext } from "@/components/context/navbar_context";
 
 export default function Login() {
   const router = useRouter();
-
+  const { loading, setLoading } = useLoadingContext();
   const [userData, setUserData] = useState({ email: "", password: "" });
+  const { setUserCred } = useUserCredContext();
+  const { setReply } = useReplyContext();
+  const { setUserNav } = useNavContext();
 
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -22,14 +29,23 @@ export default function Login() {
       return;
     }
 
+    setLoading(true);
     const res = await SendAuthData({
       route: "/api/auth/register",
       data: userData,
     });
+
+    setReply(res.message);
+
+    setLoading(false);
+
     if (res.status == 200) {
-      setTimeout(() => {
-        router.push("/home");
-      }, 1000);
+      setUserCred(res.userCredentials);
+      setUserNav();
+      // setTimeout(() => {
+      //   router.push("/home");
+      // }, 1000);
+      router.push("/home");
     }
   }
 
@@ -67,12 +83,13 @@ export default function Login() {
           </div>
 
           <Button
+            disabled={loading}
             className={styles.button}
             fullWidth
             type="submit"
             variant="contained"
           >
-            Login
+            Register
           </Button>
         </form>
 

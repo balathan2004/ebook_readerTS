@@ -12,7 +12,7 @@ interface Props {
 
 const ContextWrapper: FC<Props> = ({ children }) => {
   const { setUserCred } = useUserCredContext();
-  const { setDirs } = useNavContext();
+  const { setUserNav } = useNavContext();
 
   useEffect(() => {
     async function getCred() {
@@ -25,7 +25,7 @@ const ContextWrapper: FC<Props> = ({ children }) => {
       console.log(res);
       if (res.status == 200 && res.userCredentials) {
         setUserCred(res.userCredentials);
-        setDirs(NavUsers);
+        setUserNav();
       }
     }
     getCred();

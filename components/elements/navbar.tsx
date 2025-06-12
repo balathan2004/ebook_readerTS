@@ -36,7 +36,7 @@ export default function DrawerAppBar() {
     >
       <Typography variant="h6" sx={{ my: 2 }}>
         <Link href="/">
-        <Button sx={{ color: "#fff" }}>Rough Note</Button>
+        <Button sx={{ color: "#fff" }}>Ebook Reader</Button>
         </Link>
       </Typography>
       <Divider />
@@ -74,7 +74,7 @@ export default function DrawerAppBar() {
             sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
           >
                <Link href="/">
-        <Button sx={{ color: "#fff" }}>Rough Note</Button>
+        <Button sx={{ color: "#fff" }}>Ebook Reader</Button>
         </Link>
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
